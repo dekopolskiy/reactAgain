@@ -1,0 +1,25 @@
+.container{
+    border: 1px solid black;
+    display: flex;
+    height: 100%;
+}
+
+.container__content{
+    border: 1px solid black;
+    flex-grow: 1;
+    display: flex;
+}
+
+.container__sidebar{
+    border: 1px solid black;
+    flex-basis: 200px;
+}
+
+.content__messages{
+    border: 1px solid black;
+    padding: 10px;
+}
+.content__dialogs{
+    border: 1px solid black;
+    padding: 10px;
+}

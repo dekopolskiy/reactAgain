@@ -1,0 +1,10 @@
+.App{
+    width: 85%;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.main{
+    flex-grow: 1;
+}
