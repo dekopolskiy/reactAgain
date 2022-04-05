@@ -5,17 +5,19 @@ import Header from './Components/Header/Header';
 import { Footer } from './Components/Footer/Footer';
 import { Content } from './Components/Content/Content';
 import { Profile } from './Components/Content/Profile/Profile';
+import { Sidebar } from './Components/Content/Sidebar/Sidebar';
 
-const App = () => {
+const App = (props) => {
   return (
     <div className="App">
-        <Header />
-        <div className='main'>
+      <Header />
+      <div className='main'>
+        <Sidebar store={props.store}/>
         <Routes>
-          <Route path="/dialogs" element={<Content />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/dialogs" element={<Content store={props.store}/>} />
+          <Route path="/profile" element={<Profile  store={props.store} addPost={props.addPost}/> }/>
         </Routes>
-        </div>
+      </div>
       <Footer />
     </div>
 

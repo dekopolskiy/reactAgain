@@ -3,17 +3,20 @@ import React from 'react';
 import { Post } from "./Post/Post";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 
-export const Profile = () => {
+
+
+export const Profile = (props) => {
+    let linkToTextarea = React.createRef();
+
     return (
         <div className={s.profile}>
             <ProfileInfo />
             <h2>Posts</h2>
             <Post />
-            <Post />
             <div className={s.addPost}>
-                <textarea></textarea>
+                <textarea ref={linkToTextarea}></textarea>
                 <br></br>
-                <button>добавить</button>
+                <button onClick={() => props.addPost(linkToTextarea.current.value)}>добавить</button>
             </div>
         </div>)
 }
