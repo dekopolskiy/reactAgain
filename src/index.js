@@ -1,19 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { rerenderTree } from './rerender';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { addPost, store } from './store';
+import { store } from './store';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App store= {store} addPost={addPost}/>
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+
+rerenderTree(store);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

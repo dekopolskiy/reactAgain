@@ -1,3 +1,4 @@
+import { rerenderTree } from "./rerender";
 
 export const store = {
     dialogItems: [{ name: 'dmitri', id: '1' }, { name: 'volodya', id: '2' },
@@ -10,11 +11,18 @@ export const store = {
 
     posts: [{ text: 'lorem ipsum' }, { text: 'welcome' }, { text: 'happy end' }],
 
+    tempText: '',
+
+}
+
+export const changeText = (letter) => {
+    store.tempText = letter;
+    rerenderTree(store);
 }
 
 
 export const addPost = (text) => {
-    console.log(text)
-    let obj = { message: 'how are you?' };
+    let obj = { name: text };
     store.friends.push(obj);
+    rerenderTree(store);
 }
