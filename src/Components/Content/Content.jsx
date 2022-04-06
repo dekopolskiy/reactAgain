@@ -5,17 +5,17 @@ import { Message } from "./Dialogs/Message/Message";
 import { Sidebar } from "./Sidebar/Sidebar";
 
 export const Content = (props) => {
-    let store = props.store;
+    let state = props.state;
     return (
         <div className={s.container}>
             <div className={s.container__content}>
                 <div className={s.content__dialogs}>
-                    {store.dialogItems.map(function (item) {
+                    {state.dialogItems.map(function (item) {
                         return <DialogItem name={item.name} id={item.id} />
                     })}
                 </div>
                 <div className={s.content__messages}>
-                    {store.messages.map(function (item) {
+                    {state.messages.map(function (item) {
                         return <Message message={item.message}/>
                     })}
                 </div>

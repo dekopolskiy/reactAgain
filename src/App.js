@@ -7,15 +7,15 @@ import { Content } from './Components/Content/Content';
 import { Profile } from './Components/Content/Profile/Profile';
 import { Sidebar } from './Components/Content/Sidebar/Sidebar';
 
-const App = (props) => {
+const App = (props) => {//props.state
   return (
     <div className="App">
       <Header />
       <div className='main'>
-        <Sidebar store={props.store}/>
+        <Sidebar state={props.state} />
         <Routes>
-          <Route path="/dialogs" element={<Content store={props.store}/>} />
-          <Route path="/profile" element={<Profile  store={props.store} addPost={props.addPost}/> }/>
+          <Route path="/dialogs" element={<Content state={props.state} />} />
+          <Route path="/profile" element={<Profile state={props.state} dispatch={props.dispatch}/>} />
         </Routes>
       </div>
       <Footer />
