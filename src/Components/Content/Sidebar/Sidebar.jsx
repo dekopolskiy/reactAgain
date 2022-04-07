@@ -2,7 +2,7 @@ import React from 'react'
 import s from "./Sidebar.module.css"
 
 export const Sidebar = (props) => {
-  let friends = props.state.friends;
+  let friends = props.state.profile.friends;
   return (
     <div className={s.container__sidebar}>
       {friends.map(function (item) {
