@@ -2,7 +2,6 @@ import s from "./Content.module.css";
 import React from 'react';
 import { DialogItem } from "./Dialogs/DialogItem/DialogItem";
 import { Message } from "./Dialogs/Message/Message";
-import { addUser, updateUserText } from "../../actions";
 
 export const Content = (props) => {
     let dialogs = props.dialogs;

@@ -3,6 +3,9 @@ export const CHANGE_TEXT = 'CHANGE-TEXT';
 export const ADD_USER = 'ADD-USER';
 export const ADD_MESSAGE = 'ADD-MESSAGE';
 export const UPDATE_USER_TEXT = 'UPDATE-USER-TEXT';
+export const FOLLOW = 'FOLLOW';
+export const UNFOLLOW = 'UNFOLLOW';
+
 
 export const addPost = (data) => {
     return {
@@ -19,6 +22,7 @@ export const changeText = (data) => {
 }
 
 export const updateUserText = (data) => {
+    debugger
     return {
         type: UPDATE_USER_TEXT,
         data: data,
@@ -37,4 +41,18 @@ export const addMessage = (data) => {
         type: ADD_POST,
         data: data
     }
+}
+
+export const follow = (id) => {
+    return {
+        type: FOLLOW,
+        id: id
+    }
+}
+
+export const unfollow = (id) => {
+    return {
+        type: UNFOLLOW,
+        id: id
+    }    
 }

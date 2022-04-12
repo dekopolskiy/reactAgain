@@ -1,28 +1,115 @@
-import { ADD_MESSAGE, ADD_POST, ADD_USER, CHANGE_TEXT, UPDATE_USER_TEXT } from "./actions";
+import { ADD_POST, ADD_USER, CHANGE_TEXT, FOLLOW, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
 
 let initialDialog = {
-        dialogItems: [{ name: 'dmitri', id: '1' }, { name: 'volodya', id: '2' },
-        { name: 'valera', id: '3' }, { name: 'nikita', id: '4' }],
-        messages: [{ message: 'hello' }, { message: 'world' },
-        { message: 'qq' }, { message: 'pirates' }, { message: 'fuck you' }],
-        tempUserText: '',
+    dialogItems: [{ name: 'dmitri', id: '1' }, { name: 'volodya', id: '2' },
+    { name: 'valera', id: '3' }, { name: 'nikita', id: '4' }],
+    messages: [{ message: 'hello' }, { message: 'world' },
+    { message: 'qq' }, { message: 'pirates' }, { message: 'fuck you' }],
+    tempUserText: '',
 }
 
 let initialProfile = {
-        friends: [{ name: 'Dmitri' }, { name: 'Pavel' }, { name: 'Viktoria' }],
+    friends: [{ name: 'Dmitri' }, { name: 'Pavel' }, { name: 'Viktoria' }],
 
-        posts: [{ text: 'lorem ipsum' }, { text: 'welcome' }, { text: 'happy end' }],
-        tempText: '',
+    posts: [{ text: 'lorem ipsum' }, { text: 'welcome' }, { text: 'happy end' }],
+    tempText: '',
 }
 
-export const dialogs_reducer = (state = initialDialog, action) => {
+let initialUsers = {
+    items: [
+        {
+            "name": "Shubert",
+            "id": 1,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "Hacker",
+            "id": 2,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": true
+        },
+        {
+            "name": "Shubert",
+            "id": 3,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "Hacker",
+            "id": 4,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": true
+        }
+    ],
+    "totalCount": 4,
+    "error": null
+}
+
+export const users_reducer = (state = initialUsers, action) => {
     switch (action.type) {
+        case FOLLOW:
+            return {
+                ...state,
+                items: state.items.map( (item) => {
+                    if(item.id === action.id) {
+                        return {
+                            ...item,
+                            followed: true
+                        }
+                    }
+                    return item;
+                }  )
+            }
+        case UNFOLLOW:
+            return {
+                ...state,
+                items: state.items.map( (item) => {
+                    if(item.id === action.id) {
+                        return {
+                            ...item,
+                            followed: false
+                        }
+                    }
+                    return item;
+                }  )
+            }
+        default: break
+    }
+    return state;
+}
+export const dialogs_reducer = (state = initialDialog, action) => {
+    switch (action.type) { //connect вызовет свой рендер только если будет создан новый объект,
+        //то есть в mapStatetoProps значение будет обновлено, в противном случае рендера не будет
         case ADD_USER:
-            state.dialogItems.push({ name: action.data });
-            break;
+            return {
+                ...state,
+                dialogItems: [...state.dialogItems, { name: action.data }],
+                tempUserText: '',
+            }
         case UPDATE_USER_TEXT:
-            state.tempUserText = action.data;
-            break;
+            return {
+                ...state,
+                tempUserText: action.data,
+            }
+        default:
+            break
     }
     return state;
 }
@@ -30,11 +117,48 @@ export const dialogs_reducer = (state = initialDialog, action) => {
 export const profile_reducer = (state = initialProfile, action) => {
     switch (action.type) {
         case ADD_POST:
-            state.friends.push({ name: action.data });
-            break;
+            return {
+                ...state,
+                friends: [...state.friends, { name: action.data }],
+                tempText: ''
+            }
         case CHANGE_TEXT:
-            state.tempText = action.data;
-            break;
+            return {
+                ...state,
+                tempText: action.data,
+            }
+        default:
+            break
+
     }
     return state;
 }
+
+
+//Для чего initial objects? стартует проект и от react приходят экшены, т.к. совпадений нет, то по коду из switch 
+//идет возрат return state; но state = undefined, поэтому неободимо инициализировать
+//без них будет ошибка
+
+//без создания новых объектов не будет рендера через connect, т.к. mapStateToProps одни и те же данные
+
+//state в каждом случае будет разный, он добавляется под капотом после каждого dispatch
+
+
+//PLAN B
+//1.создать примерный массив объектов UI
+//2.создать initial 
+//3.создать reducer 
+//3.1 добавить в store
+//4.создать actions
+//5.connect
+//6.ui
+
+
+//PLAN A
+//1.создать примерный массив объектов UI
+//2.создать initial 
+//3.создать reducer  
+//4.создать store redux
+//5.закомбайнить reducers
+//6.Provider store react-redux
+//
