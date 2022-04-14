@@ -28,5 +28,4 @@ const mdtp = (dispatch) => {
     }
 }
 
-
 export let ContainerContent = connect(mstp, mdtp)(Content);

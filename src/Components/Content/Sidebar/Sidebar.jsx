@@ -17,7 +17,6 @@ export const Sidebar = (props) => {
 }
 
 const mstp = (state) => {
-  debugger
   return {
     friends: state.profile.friends
   }

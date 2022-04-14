@@ -5,7 +5,8 @@ export const ADD_MESSAGE = 'ADD-MESSAGE';
 export const UPDATE_USER_TEXT = 'UPDATE-USER-TEXT';
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
-
+export const SET_USERS = 'SET-USERS';
+export const SET_COUNT = 'SET-COUNT';
 
 export const addPost = (data) => {
     return {
@@ -22,7 +23,6 @@ export const changeText = (data) => {
 }
 
 export const updateUserText = (data) => {
-    debugger
     return {
         type: UPDATE_USER_TEXT,
         data: data,
@@ -55,4 +55,18 @@ export const unfollow = (id) => {
         type: UNFOLLOW,
         id: id
     }    
+}
+
+export const setUsers = (users) => {
+    return {
+        type: SET_USERS,
+        items: users 
+    }
+}
+
+export const setCount = (count) => {
+    return {
+        type: SET_COUNT,
+        count: count
+    }
 }

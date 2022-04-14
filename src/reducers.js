@@ -1,4 +1,4 @@
-import { ADD_POST, ADD_USER, CHANGE_TEXT, FOLLOW, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
+import { ADD_POST, ADD_USER, CHANGE_TEXT, FOLLOW, SET_COUNT, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
 
 let initialDialog = {
     dialogItems: [{ name: 'dmitri', id: '1' }, { name: 'volodya', id: '2' },
@@ -16,54 +16,23 @@ let initialProfile = {
 }
 
 let initialUsers = {
-    items: [
-        {
-            "name": "Shubert",
-            "id": 1,
-            "photos": {
-                "small": null,
-                "large": null
-            },
-            "status": null,
-            "followed": false
-        },
-        {
-            "name": "Hacker",
-            "id": 2,
-            "photos": {
-                "small": null,
-                "large": null
-            },
-            "status": null,
-            "followed": true
-        },
-        {
-            "name": "Shubert",
-            "id": 3,
-            "photos": {
-                "small": null,
-                "large": null
-            },
-            "status": null,
-            "followed": false
-        },
-        {
-            "name": "Hacker",
-            "id": 4,
-            "photos": {
-                "small": null,
-                "large": null
-            },
-            "status": null,
-            "followed": true
-        }
-    ],
-    "totalCount": 4,
+    items: [],
+    "totalCount": 0,
     "error": null
 }
 
 export const users_reducer = (state = initialUsers, action) => {
     switch (action.type) {
+        case SET_COUNT: 
+            return {
+                ...state,
+                totalCount: action.count,
+            }
+        case SET_USERS: 
+            return {
+                ...state,
+                items: [...action.items]
+            }
         case FOLLOW:
             return {
                 ...state,

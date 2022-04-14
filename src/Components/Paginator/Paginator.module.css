@@ -1,0 +1,26 @@
+.paginator{
+    border: 1px solid black;
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    padding: 5px;
+}
+
+.pages{
+    flex-grow: 1;
+    display: flex;
+}
+.left{
+    flex-grow: 0;
+}
+
+.right{
+    flex-grow: 0;
+}
+
+.page{
+    border: 1px solid black;
+    width: 10px;
+    padding: 5px;
+    flex-grow: 1;
+}
