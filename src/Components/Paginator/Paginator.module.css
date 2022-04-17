@@ -1,6 +1,5 @@
 .paginator{
-    border: 1px solid black;
-    width: 400px;
+    width: 260px;
     margin: 0 auto;
     display: flex;
     padding: 5px;
@@ -21,6 +20,7 @@
 .page{
     border: 1px solid black;
     width: 10px;
-    padding: 5px;
-    flex-grow: 1;
+    padding: 8px;
+    cursor: pointer;
+    width: 20px;
 }

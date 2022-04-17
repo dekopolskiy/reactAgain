@@ -36,20 +36,21 @@ export class Users extends Component {
   render() {
     return (
       <div className={s.users}>
+        <Paginator count={28} setUsers={this.props.setUsers} />
+
         {
           this.props.users.map((item) => { //this т.к. создaли объект через new User(props);
             return <div className={s.user}>
               <h4>{item.name}</h4>
-              <img src={item.photos.small? item.photos.small: '' } />
-              {item.id}
-              {item.status ? item.status : 'Not Status'}
+              <img src={item.photos.small ? item.photos.small : ''} alt='not found' />
+              <h3>{item.id}</h3>
+              <div>{item.status ? item.status : 'Not Status'}</div>
               <button onClick={item.followed ? () => this.props.unfollow(item.id) : () => this.props.follow(item.id)}>
                 {item.followed ? 'unfollow' : 'follow'}
               </button>
             </div>
           })
         }
-        <Paginator count={this.props.count} />
       </div>
     )
   }
