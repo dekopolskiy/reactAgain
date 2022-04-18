@@ -1,4 +1,4 @@
-import { ADD_POST, ADD_USER, CHANGE_TEXT, FOLLOW, SET_COUNT, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
+import { ADD_POST, ADD_USER, CHANGE_TEXT, FOLLOW, SET_COUNT, SET_LOAD, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
 
 let initialDialog = {
     dialogItems: [{ name: 'dmitri', id: '1' }, { name: 'volodya', id: '2' },
@@ -21,6 +21,22 @@ let initialUsers = {
     "error": null
 }
 
+let initialLoad = {
+    isLoad: false
+}
+
+export const loading_reducer = (state = initialLoad, action) => {
+    switch(action.type){
+        case SET_LOAD:
+            return {
+                ...state,
+                isLoad: action.isLoad
+            }
+        default: 
+        break
+    }
+    return state;
+}
 export const users_reducer = (state = initialUsers, action) => {
     switch (action.type) {
         case SET_COUNT: 

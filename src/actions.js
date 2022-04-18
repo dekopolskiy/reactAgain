@@ -7,6 +7,7 @@ export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS = 'SET-USERS';
 export const SET_COUNT = 'SET-COUNT';
+export const SET_LOAD = 'SET-LOAD';
 
 export const addPost = (data) => {
     return {
@@ -68,5 +69,12 @@ export const setCount = (count) => {
     return {
         type: SET_COUNT,
         count: count
+    }
+}
+
+export const setLoad = ( bool ) => {
+    return {
+        type: SET_LOAD,
+        isLoad: bool,
     }
 }

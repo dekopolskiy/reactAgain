@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { follow, setCount, setUsers, unfollow } from "../../actions";
+import { follow, setCount, setLoad, setUsers, unfollow } from "../../actions";
 import Users from "./Users";
 
 
@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
     return {
         users: state.users.items,
         count: state.users.totalCount,
+        isLoad: state.load.isLoad,
     }
 }
 
@@ -17,7 +18,8 @@ const mapDispatchToProps = (dispatch) => {
         unfollow: (value) => dispatch(unfollow(value)),
         setUsers: (items) => dispatch(setUsers(items)),
         setCount: (value) => dispatch(setCount(value)),
+        setLoad: (isLoad) => dispatch(setLoad(isLoad)),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, { follow, unfollow, setUsers, setCount, setLoad, })(Users);

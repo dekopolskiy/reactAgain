@@ -13,9 +13,12 @@ export class Paginator extends React.Component {
     }
 
     handleClick(page) {
+        this.props.setLoad(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=10&page=${page}`)
             .then(data => { 
                 this.props.setUsers(data.data.items);
+            }).finally(()=>{
+                this.props.setLoad(false)
             })
     }
 
