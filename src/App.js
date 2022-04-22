@@ -8,21 +8,23 @@ import { ProfileContainer } from './Components/Content/Profile/ProfileContainer'
 import UsersContainer from './Components/Users/UsersContainer';
 import { Sidebar } from './Components/Content/Sidebar/Sidebar';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { setAuthMe } from './actions';
 
 
 const App = (props) => {
-  const [status, setStatus] = useState(false);
+  const {authMe : { id: online }} = props;
   useEffect(() => {
     axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {
       withCredentials: true,//cookie не посылается автоматически если стоит CORS, поэтому TRUE
     })
-    .then(({ data : { resultCode }}) => resultCode === 1? setStatus(false): setStatus(true) ); 
-  }, [status])
+    .then(({ data }) => data.resultCode === 0? props.setAuthMe(data.data) : null); 
+  }, [])
 
   return (
     <div className="App">
-      <Header />
-      <div className={status? 'online': 'offline'}>{status? 'online': 'offline'}</div>
+      <Header/>
+      <div className={online? 'online': 'offline'}>{online? 'online': 'offline'}</div>
       <div className='main'>
         <Sidebar />
         <Routes>
@@ -33,10 +35,13 @@ const App = (props) => {
         </Routes>
       </div>
       <Footer />
-    </div>
-  )
+    </div>)
 }
-
-export default App;
+const mstp = (state) => {
+  return {
+    authMe : state.authMe,
+  }
+};
+export default connect(mstp, { setAuthMe })(App);
 //меняю url UserID но профиль один и тот же, поэтому необходимо после каждого обновления браузерной строки
 //проверять на совпдаения с помощью withRouter match, и в соотвествии с этим рендрерить компоненту

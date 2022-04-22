@@ -37,18 +37,25 @@ export class Users extends Component {
       })
   }
 
+  followAPI(){
+    console.log('follow')
+  }
+  unfollowAPI(){
+    console.log('unfollow')
+  }
+
   render() {
     return (
       <div className={s.users}>
         <Paginator count={28} setUsers={this.props.setUsers} setLoad={this.props.setLoad} />
         {this.props.isLoad ? <Loading /> :
           this.props.users.map((item) => { //this т.к. создaли объект через new User(props);
-            return <div className={s.user}>
+            return <div className={s.user} key={item.id}>
               <Link to={'/profile/' + item.id}><h4>{item.name}</h4></Link>
               <img src={item.photos.small ? item.photos.small : ''} alt='not found' />
               <h3>{item.id}</h3>
               <div>{item.status ? item.status : 'Not Status'}</div>
-              <button onClick={item.followed ? () => this.props.unfollow(item.id) : () => this.props.follow(item.id)}>
+              <button className={s.follow} onClick={item.followed ? () => this.unfollowAPI(item.id) : () => this.followAPI(item.id)}>
                 {item.followed ? 'unfollow' : 'follow'}
               </button>
             </div>
@@ -60,3 +67,4 @@ export class Users extends Component {
 }
 
 export default Users
+

@@ -1,4 +1,10 @@
-import { ADD_POST, ADD_USER, CHANGE_TEXT, FOLLOW, SET_COUNT, SET_LOAD, SET_PROFILE, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
+import { ADD_USER, FOLLOW, SET_AUTH_ME, SET_COUNT, SET_LOAD, SET_PROFILE, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
+
+let initialAuthMe = {
+        id: null,
+        email: '',
+        login: ''
+}
 
 let initialDialog = {
     dialogItems: [{ name: 'dmitri', id: '1' }, { name: 'volodya', id: '2' },
@@ -24,7 +30,7 @@ let initialProfile = {
     "lookingForAJob": true,
     "lookingForAJobDescription": '',
     "fullName": "",
-    "userId": 0
+    "userId": null
 }
 
 let initialUsers = {
@@ -35,6 +41,18 @@ let initialUsers = {
 
 let initialLoad = {
     isLoad: false
+}
+
+export const authMe_reducer = (state = initialAuthMe, action) => {
+    switch(action.type) {
+        case SET_AUTH_ME:
+            return {
+                ...action.authProfile,
+            }
+            default:
+                break
+    }
+    return state;
 }
 
 export const loading_reducer = (state = initialLoad, action) => {
@@ -116,8 +134,10 @@ export const profile_reducer = (state = initialProfile, action) => {
     switch (action.type) {
         case SET_PROFILE:
             return {
-                ...action.profile,                
+                ...action.profile,
             }
+        default:
+            break
     }
     return state;
 }

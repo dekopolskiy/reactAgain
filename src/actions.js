@@ -9,6 +9,7 @@ export const SET_USERS = 'SET-USERS';
 export const SET_COUNT = 'SET-COUNT';
 export const SET_LOAD = 'SET-LOAD';
 export const SET_PROFILE = 'SET-PROFILE';
+export const SET_AUTH_ME = 'SET-AUTH-ME';
 
 export const addPost = (data) => {
     return {
@@ -84,5 +85,12 @@ export const setProfile = (profile) => {
     return {
         type: SET_PROFILE,
         profile
+    }
+}
+
+export const setAuthMe = (authProfile) => {
+    return {
+        type: SET_AUTH_ME,
+        authProfile,
     }
 }

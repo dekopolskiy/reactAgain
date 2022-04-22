@@ -52,9 +52,9 @@ export class Paginator extends React.Component {
         return (
             <div className={s.paginator}>
                 <button className={s.left} onClick={() => this.left()}>left</button>
-                <div class={s.pages}>
-                    {arr.map((item) => {
-                        return <div className={s.page} 
+                <div className={s.pages}>
+                    {arr.map((item, index) => {
+                        return <div className={s.page} key={index}
                         onClick={() => this.handleClick(item)}
                         >{item}
                         </div>

@@ -4,7 +4,6 @@ import { useLocation, useParams } from "react-router";
 import axios from "axios";
 
 export const Profile = (props) => {
-    debugger
     const [load, setLoad] = useState(false);
     const [error, setError] = useState('');
     const { userId } = useParams();//из браузерной строки userId для профиля;
@@ -27,8 +26,8 @@ export const Profile = (props) => {
             <h3>О себе</h3>
             <div><i>{props.profile.aboutMe}</i></div>
             <h3>Контакты</h3>
-            {Object.entries(props.profile.contacts).map(function ([key, value]) {
-                return <div>{key}:{value}</div>
+            {Object.entries(props.profile.contacts).map(function ([key, value],index) {
+                return <div key={index}>{key}:{value}</div>
             })}
         </div>)
         : <div>LOAD</div>

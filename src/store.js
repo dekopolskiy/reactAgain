@@ -1,4 +1,4 @@
-import { dialogs_reducer, loading_reducer, profile_reducer, users_reducer } from "./reducers";
+import { authMe_reducer, dialogs_reducer, loading_reducer, profile_reducer, users_reducer } from "./reducers";
 import { createStore, combineReducers } from "redux";
 
 // // export const store = {
@@ -38,6 +38,7 @@ let reducers = combineReducers({//формируется state...
     profile: profile_reducer,
     users: users_reducer,
     load: loading_reducer,
+    authMe: authMe_reducer,
 });
 
 export let reduxStore = createStore(reducers);
