@@ -20,5 +20,6 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
+window.state = reduxStore.getState();
 
 reportWebVitals();

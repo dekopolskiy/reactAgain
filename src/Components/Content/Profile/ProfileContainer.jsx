@@ -1,23 +1,7 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
-import { addPost, changeText } from "../../../actions";
-import { Profile } from "./Profile"
-
-export const sProfileContainer = (props) => {
-
-    const handleChangeText = (e) => {
-        props.dispatch(changeText(e.target.value));
-    }
-
-    const handleClick = (text) => {
-        props.dispatch(addPost(text));
-    }
-
-    return (
-        <div>
-            <Profile profile={props.profile} handleChangeText={handleChangeText} handleClick={handleClick} />
-        </div>
-    )
-}
+import { setProfile } from "../../../actions";
+import { Profile } from "./Profile";
 
 const mapStateToProps = (state) => {
     return {
@@ -27,8 +11,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleChangeText: (value) => { dispatch(changeText(value))},
-        handleClick: (text) => { dispatch(addPost(text)) },
+        setProfile: (profile) => { dispatch(setProfile(profile))},
     }
 }
+
 export const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile);
+

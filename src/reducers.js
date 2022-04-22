@@ -1,4 +1,4 @@
-import { ADD_POST, ADD_USER, CHANGE_TEXT, FOLLOW, SET_COUNT, SET_LOAD, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
+import { ADD_POST, ADD_USER, CHANGE_TEXT, FOLLOW, SET_COUNT, SET_LOAD, SET_PROFILE, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
 
 let initialDialog = {
     dialogItems: [{ name: 'dmitri', id: '1' }, { name: 'volodya', id: '2' },
@@ -9,10 +9,22 @@ let initialDialog = {
 }
 
 let initialProfile = {
-    friends: [{ name: 'Dmitri' }, { name: 'Pavel' }, { name: 'Viktoria' }],
-
-    posts: [{ text: 'lorem ipsum' }, { text: 'welcome' }, { text: 'happy end' }],
-    tempText: '',
+    "aboutMe": "",
+    "contacts": {
+        "skype": "",
+        "vk": "",
+        "facebook": "",
+        "icq": "",
+        "email": "",
+        "googlePlus": "",
+        "twitter": "",
+        "instagram": "",
+        "whatsApp": ""
+    },
+    "lookingForAJob": true,
+    "lookingForAJobDescription": '',
+    "fullName": "",
+    "userId": 0
 }
 
 let initialUsers = {
@@ -26,25 +38,26 @@ let initialLoad = {
 }
 
 export const loading_reducer = (state = initialLoad, action) => {
-    switch(action.type){
+    switch (action.type) {
         case SET_LOAD:
             return {
                 ...state,
                 isLoad: action.isLoad
             }
-        default: 
-        break
+        default:
+            break
     }
     return state;
 }
+
 export const users_reducer = (state = initialUsers, action) => {
     switch (action.type) {
-        case SET_COUNT: 
+        case SET_COUNT:
             return {
                 ...state,
                 totalCount: action.count,
             }
-        case SET_USERS: 
+        case SET_USERS:
             return {
                 ...state,
                 items: [...action.items]
@@ -52,28 +65,28 @@ export const users_reducer = (state = initialUsers, action) => {
         case FOLLOW:
             return {
                 ...state,
-                items: state.items.map( (item) => {
-                    if(item.id === action.id) {
+                items: state.items.map((item) => {
+                    if (item.id === action.id) {
                         return {
                             ...item,
                             followed: true
                         }
                     }
                     return item;
-                }  )
+                })
             }
         case UNFOLLOW:
             return {
                 ...state,
-                items: state.items.map( (item) => {
-                    if(item.id === action.id) {
+                items: state.items.map((item) => {
+                    if (item.id === action.id) {
                         return {
                             ...item,
                             followed: false
                         }
                     }
                     return item;
-                }  )
+                })
             }
         default: break
     }
@@ -101,20 +114,10 @@ export const dialogs_reducer = (state = initialDialog, action) => {
 
 export const profile_reducer = (state = initialProfile, action) => {
     switch (action.type) {
-        case ADD_POST:
+        case SET_PROFILE:
             return {
-                ...state,
-                friends: [...state.friends, { name: action.data }],
-                tempText: ''
+                ...action.profile,                
             }
-        case CHANGE_TEXT:
-            return {
-                ...state,
-                tempText: action.data,
-            }
-        default:
-            break
-
     }
     return state;
 }

@@ -1,5 +1,5 @@
 .App{
-    width: 85%;
+    width: 90%;
     margin: auto;
     height: 100%;
     display: flex;
@@ -8,4 +8,18 @@
 .main{
     flex-grow: 1;
     display: flex;
+}
+
+.offline{
+    background: rgb(68, 68, 68);
+    width: 10%;
+    text-align: center;
+    color: white;
+}
+
+.online{
+    background: rgb(29, 83, 24);
+    width: 10%;
+    text-align: center;
+    color: white;
 }
