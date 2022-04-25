@@ -10,6 +10,8 @@ export const SET_COUNT = 'SET-COUNT';
 export const SET_LOAD = 'SET-LOAD';
 export const SET_PROFILE = 'SET-PROFILE';
 export const SET_AUTH_ME = 'SET-AUTH-ME';
+export const FOLLOW_IN_PROGRESS = 'FOLLOW-IN-PROGESS';
+export const REMOVE_IN_PROGRESS = 'REMOVE-IN-PROGRESS';
 
 export const addPost = (data) => {
     return {
@@ -92,5 +94,19 @@ export const setAuthMe = (authProfile) => {
     return {
         type: SET_AUTH_ME,
         authProfile,
+    }
+}
+
+export const setUserBtnDisable = (id) => {
+    return {
+        type: FOLLOW_IN_PROGRESS,
+        id
+    }
+}
+
+export const removeUserBtnDisable = (id) => {
+    return {
+        type: REMOVE_IN_PROGRESS,
+        id
     }
 }

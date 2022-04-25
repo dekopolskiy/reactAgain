@@ -1,4 +1,4 @@
-import { ADD_USER, FOLLOW, SET_AUTH_ME, SET_COUNT, SET_LOAD, SET_PROFILE, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
+import { ADD_USER, FOLLOW, FOLLOW_IN_PROGRESS, REMOVE_IN_PROGRESS, SET_AUTH_ME, SET_COUNT, SET_LOAD, SET_PROFILE, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
 
 let initialAuthMe = {
         id: null,
@@ -36,7 +36,8 @@ let initialProfile = {
 let initialUsers = {
     items: [],
     "totalCount": 0,
-    "error": null
+    "error": null,
+    users_following: [],
 }
 
 let initialLoad = {
@@ -105,6 +106,16 @@ export const users_reducer = (state = initialUsers, action) => {
                     }
                     return item;
                 })
+            }
+        case FOLLOW_IN_PROGRESS:
+            return {
+                ...state,
+                users_following: [...state.users_following, action.id]
+            }
+        case REMOVE_IN_PROGRESS:
+            return {
+                ...state,
+                users_following: [...state.users_following.filter((item)=> item !== action.id)]
             }
         default: break
     }

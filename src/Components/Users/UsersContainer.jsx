@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { follow, setCount, setLoad, setUsers, unfollow } from "../../actions";
+import { removeUserBtnDisable, setUserBtnDisable, follow, setCount, setLoad, setUsers, unfollow } from "../../actions";
 import UsersAPI  from "./UsersAPI";
 
 
@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
         users: state.users.items,
         count: state.users.totalCount,
         isLoad: state.load.isLoad,
+        users_following: state.users.users_following, //[..., 1]. paint [...1,2].paint [...1,...2,3] paint
     }
 }
 
@@ -22,4 +23,4 @@ const mapStateToProps = (state) => {
 //     }
 // }
 
-export default connect(mapStateToProps, { follow, unfollow, setUsers, setCount, setLoad, })(UsersAPI);
+export default connect(mapStateToProps, { follow, unfollow, setUsers, setCount, setLoad, setUserBtnDisable, removeUserBtnDisable })(UsersAPI);
