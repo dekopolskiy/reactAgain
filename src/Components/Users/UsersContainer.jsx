@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
         users: state.users.items,
         count: state.users.totalCount,
         isLoad: state.load.isLoad,
-        users_following: state.users.users_following, //[..., 1]. paint [...1,2].paint [...1,...2,3] paint
+        usersFollowing: state.users.users_following, //[..., 1]. paint [...1,2].paint [...1,...2,3] paint
     }
 }
 

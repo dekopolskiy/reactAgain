@@ -17,6 +17,7 @@ export const Users = (props) => {
         props.setLoad(false);
       })
   }, []);
+  
   return (
     <div className={s.users}>
       <Paginator count={28} setUsers={props.setUsers} setLoad={props.setLoad} />
