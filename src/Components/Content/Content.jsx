@@ -13,7 +13,7 @@ export const Content = (props) => {
                         return <DialogItem name={item.name} id={item.id} />
                     })}
                     <textarea value={dialogs.tempUserText}
-                        onChange={(e) => { props.handleChange(e.target.value)}}>
+                        onChange={(e) => { props.handleChange(e.target.value) }}>
                     </textarea>
                     <br></br>
                     <button onClick={() => props.handleClick(dialogs.tempUserText)}>Добавить пользователя</button>
@@ -26,3 +26,5 @@ export const Content = (props) => {
             </div>
         </div>)
 }
+
+

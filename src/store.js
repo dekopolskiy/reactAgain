@@ -1,5 +1,6 @@
 import { authMe_reducer, dialogs_reducer, loading_reducer, profile_reducer, users_reducer } from "./reducers";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from 'redux-thunk'
 
 // // export const store = {
 // //     _state: {
@@ -41,6 +42,6 @@ let reducers = combineReducers({//формируется state...
     authMe: authMe_reducer,
 });
 
-export let reduxStore = createStore(reducers);
+export let reduxStore = createStore(reducers, compose(applyMiddleware(thunk)));
 
 

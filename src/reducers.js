@@ -1,9 +1,10 @@
-import { ADD_USER, FOLLOW, FOLLOW_IN_PROGRESS, REMOVE_IN_PROGRESS, SET_AUTH_ME, SET_COUNT, SET_LOAD, SET_PROFILE, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
+import { SET_STATUS, ADD_USER, FOLLOW, FOLLOW_IN_PROGRESS, REMOVE_IN_PROGRESS, SET_AUTH_ME, SET_COUNT, SET_LOAD, SET_PROFILE, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
 
 let initialAuthMe = {
-        id: null,
-        email: '',
-        login: ''
+    id: null,
+    email: '',
+    login: '',
+    online: false,
 }
 
 let initialDialog = {
@@ -15,6 +16,7 @@ let initialDialog = {
 }
 
 let initialProfile = {
+    "status": '',
     "aboutMe": "",
     "contacts": {
         "skype": "",
@@ -45,13 +47,14 @@ let initialLoad = {
 }
 
 export const authMe_reducer = (state = initialAuthMe, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case SET_AUTH_ME:
             return {
                 ...action.authProfile,
+                online: true
             }
-            default:
-                break
+        default:
+            break
     }
     return state;
 }
@@ -115,7 +118,7 @@ export const users_reducer = (state = initialUsers, action) => {
         case REMOVE_IN_PROGRESS:
             return {
                 ...state,
-                users_following: [...state.users_following.filter((item)=> item !== action.id)]
+                users_following: [...state.users_following.filter((item) => item !== action.id)]
             }
         default: break
     }
@@ -146,6 +149,11 @@ export const profile_reducer = (state = initialProfile, action) => {
         case SET_PROFILE:
             return {
                 ...action.profile,
+            }
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status,
             }
         default:
             break

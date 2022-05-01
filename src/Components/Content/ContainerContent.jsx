@@ -1,8 +1,9 @@
-import s from "./Content.module.css";
 import React from 'react';
 import { addUser, updateUserText } from "../../actions";
 import { Content } from "./Content";
 import { connect } from "react-redux";
+import { withAuthMe } from "../WithAuthMe/WithAuthMe";
+import { compose } from 'redux';
 
 export const SContainerContent = (props) => {
     let handleChange = function (value) {
@@ -17,7 +18,7 @@ export const SContainerContent = (props) => {
 }
 const mstp = (state) => {
     return {
-        dialogs: state.dialogs
+        dialogs: state.dialogs,
     }
 }
 
@@ -27,5 +28,6 @@ const mdtp = (dispatch) => {
         handleClick: function (value) { dispatch(addUser(value)) },
     }
 }
-
-export let ContainerContent = connect(mstp, mdtp)(Content);
+const WrappedContent = withAuthMe(Content);
+export const ContainerContent = connect(mstp, mdtp)(WrappedContent)
+export default compose(withAuthMe, connect(mstp, mdtp))(Content)
