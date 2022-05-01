@@ -13,4 +13,8 @@ const instance = axios.create({
 export const httpReq = {
     follow: (id) => instance.post(`follow/${id}`, { userId: id }),
     unfollow: (id) => instance.delete(`follow/${id}`),
+    getUsers: () => instance.get('users'),
+    authMe: () => instance.get('auth/me'),
+    getPage: (count, page) => instance.get(`users?count=${count}&page=${page}`),
+    getProfile: (id) => instance.get(`profile/${id}`),
 }

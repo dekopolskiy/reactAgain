@@ -7,24 +7,22 @@ import { ContainerContent } from './Components/Content/ContainerContent';
 import { ProfileContainer } from './Components/Content/Profile/ProfileContainer';
 import UsersContainer from './Components/Users/UsersContainer';
 import { Sidebar } from './Components/Content/Sidebar/Sidebar';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { setAuthMe } from './actions';
+import { httpReq } from './DAL';
 
 
 const App = (props) => {
-  const {authMe : { id: online }} = props;
-  useEffect(() => {
-    axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-      withCredentials: true,//cookie не посылается автоматически если стоит CORS, поэтому TRUE
-    })
-    .then(({ data }) => data.resultCode === 0? props.setAuthMe(data.data) : null); 
+  const { authMe: { id: online } } = props;
+  useEffect(() => { 
+    httpReq.authMe()
+      .then(({ data }) => data.resultCode === 0 ? props.setAuthMe(data.data) : null);
   }, [])
 
   return (
     <div className="App">
-      <Header/>
-      <div className={online? 'online': 'offline'}>{online? 'online': 'offline'}</div>
+      <Header />
+      <div className={online ? 'online' : 'offline'}>{online ? 'online' : 'offline'}</div>
       <div className='main'>
         <Sidebar />
         <Routes>
@@ -39,7 +37,7 @@ const App = (props) => {
 }
 const mstp = (state) => {
   return {
-    authMe : state.authMe,
+    authMe: state.authMe,
   }
 };
 export default connect(mstp, { setAuthMe })(App);

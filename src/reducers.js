@@ -3,7 +3,7 @@ import { ADD_USER, FOLLOW, FOLLOW_IN_PROGRESS, REMOVE_IN_PROGRESS, SET_AUTH_ME, 
 let initialAuthMe = {
         id: null,
         email: '',
-        login: ''
+        login: '',
 }
 
 let initialDialog = {
@@ -121,6 +121,7 @@ export const users_reducer = (state = initialUsers, action) => {
     }
     return state;
 }
+
 export const dialogs_reducer = (state = initialDialog, action) => {
     switch (action.type) { //connect вызовет свой рендер только если будет создан новый объект,
         //то есть в mapStatetoProps значение будет обновлено, в противном случае рендера не будет
@@ -152,6 +153,9 @@ export const profile_reducer = (state = initialProfile, action) => {
     }
     return state;
 }
+
+
+
 
 
 //Для чего initial objects? стартует проект и от react приходят экшены, т.к. совпадений нет, то по коду из switch 

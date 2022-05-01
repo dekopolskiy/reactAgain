@@ -1,5 +1,5 @@
 import { authMe_reducer, dialogs_reducer, loading_reducer, profile_reducer, users_reducer } from "./reducers";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 
 // // export const store = {
 // //     _state: {
@@ -39,7 +39,7 @@ let reducers = combineReducers({//формируется state...
     users: users_reducer,
     load: loading_reducer,
     authMe: authMe_reducer,
-});
+}, applyMiddleware);
 
 export let reduxStore = createStore(reducers);
 

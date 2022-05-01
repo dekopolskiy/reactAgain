@@ -4,18 +4,14 @@ import React, { useEffect } from 'react'
 import { Paginator } from '../Paginator/Paginator';
 import Loading from '../Loading/Loading';
 import { Link } from 'react-router-dom';
+import { httpReq } from '../../DAL';
 
 export const Users = (props) => {
   useEffect(() => {
     props.setLoad(true);
-    axios.get('https://social-network.samuraijs.com/api/1.0/users', {
-      withCredentials: true
-    })
-      .then((data) => {
-        props.setUsers(data.data.items)
-      }).finally(() => {
-        props.setLoad(false);
-      })
+    httpReq.getUsers()
+      .then((data) => props.setUsers(data.data.items))
+      .finally(() => props.setLoad(false))
   }, []);
   
   return (
