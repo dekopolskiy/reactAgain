@@ -14,8 +14,8 @@ const Header = (props) => {
             </div>
             <div className={s.log}>
                 {props.id ?
-                    <Link to='/' className={s.logout}>Logout</Link>:
-                    <Link to='/' className={s.login}>Login</Link> }
+                    <Link to='/users' className={s.logout}>Logout</Link>:
+                    <Link to='/login' className={s.login}>Login</Link> }
             </div>
         </header>
     )

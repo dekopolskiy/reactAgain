@@ -1,0 +1,26 @@
+
+.login{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login__container{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login__form{
+    width: 400px;
+    height: 300px;
+}
+.name{
+    border: 1px solid black;
+    padding: 20px;
+}
+.password{
+    border: 1px solid black;
+    padding: 20px;
+}

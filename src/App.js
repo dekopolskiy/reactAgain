@@ -8,21 +8,20 @@ import { ProfileContainer } from './Components/Content/Profile/ProfileContainer'
 import UsersContainer from './Components/Users/UsersContainer';
 import { Sidebar } from './Components/Content/Sidebar/Sidebar';
 import { connect } from 'react-redux';
-import { setAuthMe } from './actions';
-import { httpReq } from './DAL';
-
+import LoginContainer from './Components/Login/LoginContainer';
+import { authMeThunk } from './actions';
 
 const App = (props) => {
-  const { authMe: { id: online } } = props;
-  useEffect(() => { 
-    httpReq.authMe()
-      .then(({ data }) => data.resultCode === 0 ? props.setAuthMe(data.data) : null);
-  }, [])
+  const [load, setLoad] = useState(true);
+  useEffect(() => {
+    props.authMeThunk()
+      .then(() => setLoad(false))
+  }, [props.authMe.online])
 
-  return (
+  return load ? <div>LOADING...</div> : (
     <div className="App">
       <Header />
-      <div className={online ? 'online' : 'offline'}>{online ? 'online' : 'offline'}</div>
+      <div className={props.authMe.online ? 'online' : 'offline'}>{props.authMe.online ? 'online' : 'offline'}</div>
       <div className='main'>
         <Sidebar />
         <Routes>
@@ -30,6 +29,7 @@ const App = (props) => {
           <Route path="/profile" element={<ProfileContainer />} />
           <Route path="/profile/:userId" element={<ProfileContainer />} />
           <Route path="/users" element={<UsersContainer />} />
+          <Route path="/login" element={<LoginContainer />} />
         </Routes>
       </div>
       <Footer />
@@ -40,6 +40,6 @@ const mstp = (state) => {
     authMe: state.authMe,
   }
 };
-export default connect(mstp, { setAuthMe })(App);
+export default connect(mstp, { authMeThunk })(App);
 //меняю url UserID но профиль один и тот же, поэтому необходимо после каждого обновления браузерной строки
 //проверять на совпдаения с помощью withRouter match, и в соотвествии с этим рендрерить компоненту

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { httpReq } from '../../DAL';
 import s from "./Paginator.module.css";
@@ -14,10 +13,7 @@ export class Paginator extends React.Component {
     }
 
     handleClick(page) {
-        this.props.setLoad(true);
-        httpReq.getPage(10, page)
-            .then(data => this.props.setUsers(data.data.items))
-            .finally(()=> this.props.setLoad(false))
+        this.props.getPageThunk(page);
     }
 
     right() {

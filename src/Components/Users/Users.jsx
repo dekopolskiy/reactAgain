@@ -1,22 +1,17 @@
-import axios from 'axios';
 import s from "./Users.module.css";
 import React, { useEffect } from 'react'
-import { Paginator } from '../Paginator/Paginator';
 import Loading from '../Loading/Loading';
 import { Link } from 'react-router-dom';
-import { httpReq } from '../../DAL';
+import PaginatorContainer  from '../Paginator/PaginatorContainer';
 
 export const Users = (props) => {
   useEffect(() => {
-    props.setLoad(true);
-    httpReq.getUsers()
-      .then((data) => props.setUsers(data.data.items))
-      .finally(() => props.setLoad(false))
+    props.getUsersThunk();
   }, []);
   
   return (
     <div className={s.users}>
-      <Paginator count={28} setUsers={props.setUsers} setLoad={props.setLoad} />
+      <PaginatorContainer />
       {props.isLoad ? <Loading /> :
         props.users.map((item) => {
           return <div className={s.user} key={item.id}>

@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import s from './Status.module.css'
 
 export const Status = (props) => {
-    const [temp, setTemp] = useState('');
-    const [editMode, setEditMode] = useState(false);
-    const [status, setStatus] = useState('');
+  const [editMode, setEditMode] = useState(true);
+  const [temp, setTemp] = useState('');
 
-    useEffect(() => { setTimeout(() => setStatus('hello'), 2000) }, [])
-    return (
-        <div>
-            {editMode ?
-                <textarea
-                    onChange={(e) => setTemp(e.target.value)}
-                    value={temp}
-                    onBlur={() => {
-                        setTimeout(() => { setStatus(temp)},1000)
-                        setEditMode(false);
-                    }}
-                ></textarea>
-                : <div tabindex='0' onFocus={() => {
-                    setTemp(status);
-                    setEditMode(true)
-                }
-                }>STATUS:{status}</div>
-            }
-        </div>
-    )
+  return (
+    <div className={s.status}>
+      {editMode ?
+        <div tabIndex={0} onFocus={() => {
+          setTemp(props.status);
+          setEditMode(false);
+        }}>{props.status}</div>
+        : <textarea value={temp}
+          onChange={(e) => { setTemp(e.target.value) }}
+          onBlur={() => {
+            props.setStatusThunk(temp);
+            setEditMode(true);
+          }}
+        ></textarea>}
+    </div>
+  )
+
 }
 
