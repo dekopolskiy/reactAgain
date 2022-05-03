@@ -12,6 +12,7 @@ export const SET_COUNT = 'SET-COUNT';
 export const SET_LOAD = 'SET-LOAD';
 export const SET_PROFILE = 'SET-PROFILE';
 export const SET_AUTH_ME = 'SET-AUTH-ME';
+export const DELETE_AUTH = 'DELETE-AUTH';
 export const FOLLOW_IN_PROGRESS = 'FOLLOW-IN-PROGESS';
 export const REMOVE_IN_PROGRESS = 'REMOVE-IN-PROGRESS';
 export const SET_STATUS = 'SET-STATUS';
@@ -100,6 +101,12 @@ export const setAuthMe = (authProfile) => {
     }
 }
 
+export const deleteAuth = () => {
+    return {
+        type: DELETE_AUTH,
+    }
+}
+
 export const setUserBtnDisable = (id) => {
     return {
         type: FOLLOW_IN_PROGRESS,
@@ -126,6 +133,7 @@ export const getUsersThunk = () => {
         dispatch(setLoad(true));
         httpReq.getUsers()
             .then((data) => dispatch(setUsers(data.data.items)))
+            .catch((e) => console.log(e))
             .finally(() => dispatch(setLoad(false)))
     }
 }
@@ -135,6 +143,7 @@ export const followThunk = (id) => {
         dispatch(setUserBtnDisable(id));
         httpReq.follow(id)
             .then(({ data: { resultCode } }) => resultCode === 0 ? dispatch(follow(id)) : '')
+            .catch((e) => console.log(e))
             .finally(() => dispatch(removeUserBtnDisable(id)))
     }
 }
@@ -144,6 +153,7 @@ export const unfollowThunk = (id) => {
         dispatch(setUserBtnDisable(id));
         httpReq.unfollow(id)
             .then(({ data: { resultCode } }) => resultCode === 0 ? dispatch(unfollow(id)) : '')
+            .catch((e) => console.log(e))
             .finally(() => dispatch(removeUserBtnDisable(id)))
     }
 }
@@ -154,6 +164,7 @@ export const getPageThunk = (page) => {
         dispatch(setLoad(true));
         httpReq.getPage(10, page)
             .then(data => dispatch(setUsers(data.data.items)))
+            .catch((e) => console.log(e))
             .finally(() => dispatch(setLoad(false)))
     }
 }
@@ -179,14 +190,19 @@ export const getStatusThunk = (id) => {
     return dispatch => {
         httpReq.getStatus(id)
             .then(({ data }) => dispatch(setStatus(data)))
+            .catch()
+            .finally()
     }
 }
 
 export const setStatusThunk = (newStatus) => {
     return dispatch => {
         httpReq.setStatus(newStatus)
-            .then(({ data }) => { 
-                dispatch(setStatus(newStatus))})
+            .then(({ data }) => {
+                dispatch(setStatus(newStatus))
+            })
+            .catch()
+            .finally()
     }
 }
 
@@ -194,5 +210,31 @@ export const getProfileThunk = (id) => {
     return dispatch => {
         httpReq.getProfile(id)
             .then(data => dispatch(setProfile(data.data)))
+            .catch()
+            .finally()
+    }
+}
+
+export const loginThunk = (formData) => {
+    return dispatch => {
+        httpReq.login(formData)
+            .then(data => data.data.resultCode === 0 ? dispatch(setAuthMe({
+                id: data.data.userId,
+                email: formData.email,
+                login: formData.login,
+            })) : null)
+            .catch()
+            .finally()
+    }
+}
+
+export const logoutThunk = () => {
+    return dispatch => {
+        httpReq.logout()
+            .then(data => {
+                return data.data.resultCode === 0 ? dispatch(deleteAuth()) : null
+            })
+            .catch()
+            .finally()
     }
 }

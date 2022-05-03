@@ -1,6 +1,7 @@
 import { authMe_reducer, dialogs_reducer, loading_reducer, profile_reducer, users_reducer } from "./reducers";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from 'redux-thunk'
+import { reducer } from "redux-form";
 
 // // export const store = {
 // //     _state: {
@@ -40,6 +41,7 @@ let reducers = combineReducers({//формируется state...
     users: users_reducer,
     load: loading_reducer,
     authMe: authMe_reducer,
+    form: reducer,
 }, applyMiddleware);
 
 export let reduxStore = createStore(reducers, compose(applyMiddleware(thunk)));

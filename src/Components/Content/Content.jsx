@@ -9,8 +9,8 @@ export const Content = (props) => {
         <div className={s.container}>
             <div className={s.container__content}>
                 <div className={s.content__dialogs}>
-                    {dialogs.dialogItems.map(function (item) {
-                        return <DialogItem name={item.name} id={item.id} />
+                    {dialogs.dialogItems.map(function (item, index) {
+                        return <DialogItem name={item.name} id={item.id} key={index}/>
                     })}
                     <textarea value={dialogs.tempUserText}
                         onChange={(e) => { props.handleChange(e.target.value) }}>
@@ -19,8 +19,8 @@ export const Content = (props) => {
                     <button onClick={() => props.handleClick(dialogs.tempUserText)}>Добавить пользователя</button>
                 </div>
                 <div className={s.content__messages}>
-                    {dialogs.messages.map(function (item) {
-                        return <Message message={item.message} />
+                    {dialogs.messages.map(function (item, index) {
+                        return <Message message={item.message} key={index} />
                     })}
                 </div>
             </div>

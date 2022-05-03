@@ -1,21 +1,26 @@
 import s from './Login.module.css'
 import React from 'react'
+import { Field, reduxForm } from 'redux-form'
 
-function Login() {
+function Login(props) {
+  //props.onSubmit
+  const { handleSubmit } = props; //3 затем в контейнерной компоненте отрабатывают методы 
+  //и если есть props.onSubmit - вызывается
+
   return (
     <div className={s.login}>
       <div className={s.login__container}>
         <div className={s.login__form}>
-          <form>
-            <div className={s.name}>
-              <label for="text">Name:</label>
-              <input type="text" name='loginName' />
+          <form onSubmit={handleSubmit}> {/*2*/}
+            <div>
+              <label htmlFor="email">Email:</label>
+              <Field name="email" component="input" type="text" />
             </div>
-            <div className={s.password}>
-              <label for="password">Password:</label>
-              <input type="password" name='password' />
+            <div>
+              <label htmlFor="password">Password:</label>
+              <Field name="password" component="input" type="password" />
             </div>
-            <button>LOGIN</button>
+            <button type="submit">Submit</button> {/*1*/}
           </form>
         </div>
       </div>
@@ -23,4 +28,6 @@ function Login() {
   )
 }
 
-export default Login
+export default reduxForm({
+  form: 'login'
+})(Login)

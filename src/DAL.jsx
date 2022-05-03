@@ -18,5 +18,7 @@ export const httpReq = {
     authMe: () => instance.get(`auth/me`),
     getProfile: (id) => instance.get(`profile/${id}`),
     getStatus: (id) => instance.get(`profile/status/${id}`),
-    setStatus: ( status ) => instance.put(`profile/status`, { status })
+    setStatus: (status) => instance.put(`profile/status`, { status }),
+    login: ({ email, password }) => instance.post(`auth/login`, { email, password }),
+    logout: () => instance.delete(`auth/login`),
 }

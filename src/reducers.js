@@ -1,5 +1,4 @@
-import { SET_STATUS, ADD_USER, FOLLOW, FOLLOW_IN_PROGRESS, REMOVE_IN_PROGRESS, SET_AUTH_ME, SET_COUNT, SET_LOAD, SET_PROFILE, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT } from "./actions";
-import StatusContainer from "./Components/Content/Profile/Status/StatusContainer";
+import { SET_STATUS, ADD_USER, FOLLOW, FOLLOW_IN_PROGRESS, REMOVE_IN_PROGRESS, SET_AUTH_ME, SET_COUNT, SET_LOAD, SET_PROFILE, SET_USERS, UNFOLLOW, UPDATE_USER_TEXT, DELETE_AUTH } from "./actions";
 
 let initialAuthMe = {
     id: null,
@@ -53,6 +52,14 @@ export const authMe_reducer = (state = initialAuthMe, action) => {
             return {
                 ...action.authProfile,
                 online: true
+            }
+        case DELETE_AUTH:
+            return {
+                ...state,
+                id: null,
+                email: '',
+                login: '',
+                online: false,
             }
         default:
             break

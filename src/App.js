@@ -15,10 +15,10 @@ const App = (props) => {
   const [load, setLoad] = useState(true);
   useEffect(() => {
     props.authMeThunk()
-      .then(() => setLoad(false))
+      .then(() => setLoad(false)) 
   }, [props.authMe.online])
 
-  return load ? <div>LOADING...</div> : (
+  return load ? <div>LOADING...</div> : ( //т.е сначала прогружается инфа о пользователе, только потом отрисовка
     <div className="App">
       <Header />
       <div className={props.authMe.online ? 'online' : 'offline'}>{props.authMe.online ? 'online' : 'offline'}</div>

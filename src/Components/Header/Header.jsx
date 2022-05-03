@@ -1,9 +1,14 @@
 import s from "./Header.module.css";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
+import { logoutThunk } from "../../actions";
 
 
 const Header = (props) => {
+    const handleEntry = () => {
+        props.logoutThunk();
+    }
+
     return (
         <header className={s.header}>
             <div className={s.menu}>
@@ -13,16 +18,17 @@ const Header = (props) => {
                 <Link to='/users' className={s.link}>Users</Link>
             </div>
             <div className={s.log}>
-                {props.id ?
-                    <Link to='/users' className={s.logout}>Logout</Link>:
-                    <Link to='/login' className={s.login}>Login</Link> }
+                {props.online ?
+                    <Link to='/login' className={s.logout} onClick={handleEntry}>Logout</Link> :
+                    <Link to='/login' className={s.login}>Login</Link>}
             </div>
         </header>
     )
 }
 const mstp = (state) => {
     return {
-        id: state.authMe.id
+        online: state.authMe.online
     }
 }
-export default connect(mstp,null)(Header);
+
+export default connect(mstp, { logoutThunk })(Header);
