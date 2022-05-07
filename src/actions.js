@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { httpReq } from "./DAL";
 
 export const ADD_POST = 'ADD-POST';
@@ -218,12 +219,18 @@ export const getProfileThunk = (id) => {
 export const loginThunk = (formData) => {
     return dispatch => {
         httpReq.login(formData)
-            .then(data => data.data.resultCode === 0 ? dispatch(setAuthMe({
-                id: data.data.userId,
-                email: formData.email,
-                login: formData.login,
-            })) : null)
-            .catch()
+            .then(data => {
+                if (data.data.resultCode === 0) {
+                    dispatch(setAuthMe({
+                        id: data.data.userId,
+                        email: formData.email,
+                        login: formData.login,
+                    }))
+                } else {
+                    dispatch(stopSubmit('login', {'_error' : data.data.messages[0]}));
+                }
+            })
+            .catch( e => dispatch(stopSubmit('login', {'_error' : e.toJSON().message})))
             .finally()
     }
 }

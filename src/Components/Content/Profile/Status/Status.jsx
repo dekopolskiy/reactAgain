@@ -8,8 +8,8 @@ export const Status = (props) => {
   return (
     <div className={s.status}>
       {editMode ?
-        <div tabIndex={0} onFocus={() => {
-          setTemp(props.status);
+        <div onDoubleClick={() => {
+          setTemp(props.status);//
           setEditMode(false);
         }}>{props.status}</div>
         : <textarea value={temp}
